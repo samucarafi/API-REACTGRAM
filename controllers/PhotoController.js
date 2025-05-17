@@ -173,6 +173,14 @@ const commentPhoto = async (req, res) => {
     message: "O comentário foi adicionado com sucesso.",
   });
 };
+
+//SEarch photos by title
+const searchPhotos = async (req, res) => {
+  //diferente das outras não usa params e sim query
+  const { q } = req.query;
+  const photos = await Photo.find({ title: new RegExp(q, "i") }).exec();
+  res.status(200).json(photos);
+};
 export {
   insertPhoto,
   deletePhoto,
@@ -182,4 +190,5 @@ export {
   updatePhoto,
   likePhoto,
   commentPhoto,
+  searchPhotos,
 };
